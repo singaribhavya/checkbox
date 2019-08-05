@@ -1,0 +1,24 @@
+<form [formGroup]="appointments">
+  <mat-form-field>
+      <mat-select placeholder="select floor" formControlName="floor" (selectionChange)="loadDepartments($event.value)" multiple>
+        <mat-option #allfloorselected [value]='0' (click)="toggleAllSelection('floor')">{{'AppointmentsModule.manage.allFloors'|translate}} </mat-option>
+        <mat-option [value]="floor.floorId" (click)="toggleperOne('floor')"*ngFor="let floor of levellist">{{floor.floorName}}</mat-option>
+      </mat-select>
+  </mat-form-field>
+ <mat-form-field>
+   <mat-select placeholder="select department" (selectionChange)="loadServices($event.value)" formControlName="department" multiple>
+     <mat-option #alldepartmentsSelected [value]='0'(click)="toggleAllSelection('department')">{{'AppointmentsModule.manage.allDeptartments'|translate}}</mat-option>
+     <mat-optgroup *ngFor="let floor of floorgroup" [label]="floor.floorName">
+       <mat-option  [value]="dept" (click)="toggleperOne('department')"*ngFor="let dept of floor.departments">{{dept.deptName}}</mat-option>
+     </mat-optgroup>
+   </mat-select>
+ </mat-form-field>
+ <mat-form-field>
+   <mat-select placeholder="select service" formControlName="service" multiple>
+     <mat-option #allserviceSelected [value]='0'(click)="toggleAllSelection('service')">{{'AppointmentsModule.manage.allServices'|translate}}</mat-option>
+     <mat-optgroup *ngFor="let dept of deptGroup" [label]="dept.deptName">
+       <mat-option [value]="service" *ngFor="let service of dept.services" (click)="toggleperOne('service')">{{service.serviceEngName}}</mat-option>
+     </mat-optgroup>
+   </mat-select>
+ </mat-form-field>
+</form>
